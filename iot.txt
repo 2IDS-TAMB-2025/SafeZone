@@ -1,0 +1,8 @@
+links do Iot:
+https://www.tinkercad.com/things/dZw57hTxMCn-mq2arduino?sharecode=msTqEb6hKS8Xb_TExwDYsG-sJ4jGUOKQHyhVWfi2jzk
+
+https://www.tinkercad.com/things/hJ9zppJ9dhf-temperatura?sharecode=hmRZ0FsgRhZRDpiZWI_qI3wcafaR860YaeEoTFyv_6k
+
+https://www.tinkercad.com/things/6ZnW1G9FSjc-umidade-solosensor?sharecode=-yrNvW5kfGZz-20KlaRrVcnEiJxF5ZFji389af1428Y
+
+https://www.tinkercad.com/things/bM0gkwSO011-ultrassonicosensor?sharecode=UjMjqRfzt7c5w1ir0htSafoVkJe3VAkKFYrTZzG7KZ4
