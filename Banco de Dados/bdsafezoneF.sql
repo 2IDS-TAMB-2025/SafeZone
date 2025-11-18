@@ -1,0 +1,534 @@
+-- =====================================================
+--  Banco de Dados SAFE_ZONE
+-- =====================================================
+CREATE DATABASE IF NOT EXISTS SAFE_ZONE;
+USE SAFE_ZONE;
+
+-- =====================================================
+--  TABELA USUARIO
+-- =====================================================
+CREATE TABLE IF NOT EXISTS USUARIO (
+
+  ID_USUARIO         INT AUTO_INCREMENT PRIMARY KEY,
+  NOME               VARCHAR(100)   NOT NULL,
+  SOBRENOME          VARCHAR(100)   NOT NULL,
+  EMAIL              VARCHAR(100) UNIQUE NOT NULL,
+  DATA_NASCIMENTO    DATE           NOT NULL,
+  CPF                VARCHAR(11)    NOT NULL,
+  SENHA              VARCHAR(100)   NOT NULL,
+  TELEFONE_CELULAR   VARCHAR(11)    NOT NULL,
+  RAZAO_SOCIAL       VARCHAR(100),
+  CNPJ               VARCHAR(20),
+  TIPO_USUARIO       ENUM('ADMINISTRADOR','USUARIO') NOT NULL
+);
+SELECT  * FROM USUARIO;
+ALTER TABLE USUARIO ADD COLUMN FOTO_PERFIL VARCHAR(255) NULL;
+
+
+-- =====================================================
+--  TABELA SENSORES
+-- =====================================================
+CREATE TABLE IF NOT EXISTS SENSORES (
+  ID_SENSOR           INT AUTO_INCREMENT PRIMARY KEY,
+  TIPO_SENSOR         VARCHAR(50)    NOT NULL,
+  LOCALIZACAO         VARCHAR(300)   NOT NULL,
+  DATA_INSTALACAO     DATE           NOT NULL,
+  STATUS_SENSOR       VARCHAR(50)    NOT NULL
+);
+
+UPDATE SENSORES
+SET TIPO_SENSOR = 'Sensor Ultrassonico'
+WHERE TIPO_SENSOR = 'Sensor Ultrassônico';
+SELECT * FROM SENSORES;
+
+-- =====================================================
+-- TABELA HISTÓRICO DOS SENSORES
+-- =====================================================
+CREATE TABLE IF NOT EXISTS HISTORICO (
+    ID_HISTORICO    INT AUTO_INCREMENT PRIMARY KEY,
+    ID_SENSOR       INT NOT NULL,
+    DADOS           VARCHAR(4000) NOT NULL,
+    UNIDADE_MEDIDA  VARCHAR(200) NOT NULL,
+    LATITUDE        DECIMAL(9,6) NULL,
+    LONGITUDE       DECIMAL(9,6) NULL,
+    DATA_HORA_COLETA DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ID_SENSOR)
+        REFERENCES SENSORES(ID_SENSOR)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+SELECT * FROM USUARIO;
+
+-- =====================================================
+--  INSERTS REAIS
+-- =====================================================
+
+
+-- 1) USUÁRIOS
+INSERT INTO USUARIO (
+    ID_USUARIO, NOME, SOBRENOME, EMAIL, DATA_NASCIMENTO, CPF, SENHA,
+    TELEFONE_CELULAR, RAZAO_SOCIAL, CNPJ, TIPO_USUARIO, FOTO_PERFIL
+) VALUES
+(15, 'Larissa', 'Breda', 'larissamoronibredasesi@gmail.com', '2007-08-10', '44615924801', 'lalajola', '19989198038', "Breda's Tech", '12345678908760', 'ADMINISTRADOR', 'perfil_68e39a6f2725c1.37873767.png'),
+(25, 'MICKE', 'RIBEIRO', 'maissahelena06@gmail.com', '2025-10-27', '44623862801', '12345678', '19992878354', NULL, '8520', 'USUARIO', NULL),
+(26, 'Cauã', 'Rosa', 'caua16rosa@gmail.com', '2007-09-24', '40557868831', 'ca20ro16', '19989961076', '', '', 'USUARIO', 'perfil_68ff8c20088c85.29966666.png'),
+(27, 'Ana Laura', 'Gimenez', 'gimenezanalaura602@gmail.com', '2007-04-27', '44199049843', 'Ana@2007', '19997054576', '', '', 'USUARIO', 'perfil_68ff8c16f227d1.84654829.png'),
+(28, 'Ana', 'Wutzler', 'ana-wutzler536@portalsesisp.org.br', '2008-01-23', '44646157837', '12345678', '11932648171', '', '', 'USUARIO', 'perfil_68ff8c286cbd45.89810463.png'),
+(30, 'HENRIQUE', 'ALVES', 'conteirohenrique@gmail.com', '2007-07-17', '40070124825', 'H170707', '19994583692', NULL, NULL, 'USUARIO', NULL);
+
+SELECT * FROM USUARIO;
+
+-- 2) SENSORES Conversar com o gabriel se eu já insiro todos os sensores, OU se eu excluo alguns para fazer o teste
+INSERT INTO SENSORES (ID_SENSOR, TIPO_SENSOR, LOCALIZACAO, DATA_INSTALACAO, STATUS_SENSOR)
+VALUES 
+-- inserts Tambaú - Escola Sesi SENSORES REAIS --
+    (13, 'Sensor de Temperatura', 'Tambaú - Escola Sesi', CURDATE(), 'Ativo'),
+    (14, 'Sensor de Umidade', 'Tambaú - Escola Sesi', CURDATE(), 'Ativo'),
+    (15, 'Sensor Ultrassônico', 'Tambaú - Escola Sesi', CURDATE(), 'Ativo'),
+    (18, 'Sensor de Gases', 'Tambaú - Escola Sesi', CURDATE(), 'Ativo');
+    
+
+INSERT INTO SENSORES (ID_SENSOR, TIPO_SENSOR, LOCALIZACAO, DATA_INSTALACAO, STATUS_SENSOR)
+VALUES 
+-- inserts Tambaú - Prefeitura --
+	(1, 'Sensor de Temperatura', 'Tambaú - Prefeitura', CURDATE(), 'Ativo'),
+    (2, 'Sensor de Umidade', 'Tambaú - Prefeitura', CURDATE(), 'Ativo'),
+    (3, 'Sensor Ultrassônico', 'Tambaú - Prefeitura', CURDATE(), 'Ativo'),
+    (4, 'Sensor de Gases', 'Tambaú - Prefeitura', CURDATE(), 'Ativo'),
+
+-- inserts Tambaú - São Lourenço --
+	(5, 'Sensor de Temperatura', 'Tambaú - São Lourenço', CURDATE(), 'Ativo'),
+    (6, 'Sensor de Umidade', 'Tambaú - São Lourenço', CURDATE(), 'Ativo'),
+    (7, 'Sensor Ultrassônico', 'Tambaú - São Lourenço', CURDATE(), 'Ativo'),
+    (8, 'Sensor de Gases', 'Tambaú - São Lourenço', CURDATE(), 'Ativo'),
+    
+-- inserts Tambaú - Serra --
+	(9, 'Sensor de Temperatura', 'Tambaú - Serra', CURDATE(), 'Ativo'),
+    (10, 'Sensor de Umidade', 'Tambaú - Serra', CURDATE(), 'Ativo'),
+    (11, 'Sensor Ultrassônico', 'Tambaú - Serra', CURDATE(), 'Ativo'),
+    (12, 'Sensor de Gases', 'Tambaú - Serra', CURDATE(), 'Ativo'),
+    
+-- inserts Palmeiras - Prefeitura --
+	(19, 'Sensor de Temperatura', 'Palmeiras - Prefeitura', CURDATE(), 'Ativo'),
+    (20, 'Sensor de Umidade', 'Palmeiras - Prefeitura', CURDATE(), 'Ativo'),
+    (21, 'Sensor Ultrassônico', 'Palmeiras - Prefeitura', CURDATE(), 'Ativo'),
+    (22, 'Sensor de Gases', 'Palmeiras - Prefeitura', CURDATE(), 'Ativo'),
+    
+-- inserts Palmeiras - Jardim Santa Clara --
+	(23, 'Sensor de Temperatura', 'Palmeiras - Jardim Santa Clara', CURDATE(), 'Ativo'),
+    (24, 'Sensor de Umidade', 'Palmeiras - Jardim Santa Clara', CURDATE(), 'Ativo'),
+    (25, 'Sensor Ultrassônico', 'Palmeiras - Jardim Santa Clara', CURDATE(), 'Ativo'),
+    (26, 'Sensor de Gases', 'Palmeiras - Jardim Santa Clara', CURDATE(), 'Ativo'),
+    
+-- inserts Palmeiras - Vila dos Oficias --
+	(27, 'Sensor de Temperatura', 'Palmeiras - Vila dos Oficias', CURDATE(), 'Ativo'),
+    (28, 'Sensor de Umidade', 'Palmeiras - Vila dos Oficias', CURDATE(), 'Ativo'),
+    (29, 'Sensor Ultrassônico', 'Palmeiras - Vila dos Oficias', CURDATE(), 'Ativo'),
+    (30, 'Sensor de Gases', 'Palmeiras - Vila dos Oficias', CURDATE(), 'Ativo'),
+
+-- inserts Palmeiras - Santo Antônio--
+	(31, 'Sensor de Temperatura', 'Palmeiras - Santo Antônio', CURDATE(), 'Ativo'),
+    (32, 'Sensor de Umidade', 'Palmeiras - Santo Antônio', CURDATE(), 'Ativo'),
+    (33, 'Sensor Ultrassônico', 'Palmeiras - Santo Antônio', CURDATE(), 'Ativo'),
+    (34, 'Sensor de Gases', 'Palmeiras - Santo Antônio', CURDATE(), 'Ativo');
+
+-- =====================================================
+-- INSERÇÃO DE DADOS NA TABELA HISTORICO
+-- =====================================================
+INSERT INTO HISTORICO (ID_HISTORICO, ID_SENSOR, DADOS, UNIDADE_MEDIDA, LATITUDE, LONGITUDE, DATA_HORA_COLETA)
+VALUES
+(40,13,27.6,'°C',NULL,NULL,'2025-09-22 10:11:47'),
+(41,14,77,'%',NULL,NULL,'2025-09-22 10:11:49'),
+(43,13,28,'°C',NULL,NULL,'2025-09-22 10:12:22'),
+(44,14,76,'%',NULL,NULL,'2025-09-22 10:12:23'),
+(46,13,28,'°C',NULL,NULL,'2025-09-22 10:13:31'),
+(47,14,76,'%',NULL,NULL,'2025-09-22 10:13:32'),
+(49,13,28,'°C',NULL,NULL,'2025-09-22 10:14:05'),
+(50,14,72,'%',NULL,NULL,'2025-09-22 10:14:06'),
+(52,13,28,'°C',NULL,NULL,'2025-09-22 10:14:40'),
+(53,14,72,'%',NULL,NULL,'2025-09-22 10:14:41'),
+(55,13,28,'°C',NULL,NULL,'2025-09-22 10:15:14'),
+(56,14,71,'%',NULL,NULL,'2025-09-22 10:15:15'),
+(58,13,28,'°C',NULL,NULL,'2025-09-22 10:15:48'),
+(59,14,70,'%',NULL,NULL,'2025-09-22 10:15:49'),
+(61,13,28,'°C',NULL,NULL,'2025-09-22 10:16:22'),
+(62,14,71,'%',NULL,NULL,'2025-09-22 10:16:23'),
+(64,13,27.6,'°C',NULL,NULL,'2025-09-22 10:16:56'),
+(65,14,71,'%',NULL,NULL,'2025-09-22 10:16:57'),
+(66,15,56.72,'cm',NULL,NULL,'2025-09-22 10:34:41'),
+(67,15,55.31,'cm',NULL,NULL,'2025-09-22 10:35:15'),
+(68,15,34.71,'cm',NULL,NULL,'2025-09-22 10:35:46'),
+(69,15,42.97,'cm',NULL,NULL,'2025-09-22 10:36:17'),
+(70,15,44.98,'cm',NULL,NULL,'2025-09-22 10:36:49'),
+(71,15,36.29,'cm',NULL,NULL,'2025-09-22 10:37:21'),
+(72,15,756.5,'cm',NULL,NULL,'2025-09-29 08:35:11'),
+(73,15,6.33,'cm',NULL,NULL,'2025-09-29 08:35:43'),
+(74,15,61.78,'cm',NULL,NULL,'2025-09-29 08:36:15'),
+(75,15,143.34,'cm',NULL,NULL,'2025-09-29 08:36:46'),
+(76,15,1012.74,'cm',NULL,NULL,'2025-09-29 08:37:17'),
+(77,15,1012.64,'cm',NULL,NULL,'2025-09-29 08:37:49'),
+(78,15,191.24,'cm',NULL,NULL,'2025-09-29 08:38:20'),
+(79,15,1012.76,'cm',NULL,NULL,'2025-09-29 08:38:51'),
+(80,15,191.17,'cm',NULL,NULL,'2025-09-29 08:39:22'),
+(81,15,1012.72,'cm',NULL,NULL,'2025-09-29 08:39:53'),
+(82,15,1012.84,'cm',NULL,NULL,'2025-09-29 08:40:25'),
+(83,15,1012.78,'cm',NULL,NULL,'2025-09-29 08:40:56'),
+(84,15,5.55,'cm',NULL,NULL,'2025-09-29 08:41:27'),
+(85,15,5.12,'cm',NULL,NULL,'2025-09-29 08:41:58'),
+(86,15,5.55,'cm',NULL,NULL,'2025-09-29 08:42:29'),
+(87,15,5.55,'cm',NULL,NULL,'2025-09-29 08:43:00'),
+(88,15,5.55,'cm',NULL,NULL,'2025-09-29 08:43:31'),
+(89,15,5.55,'cm',NULL,NULL,'2025-09-29 08:44:03'),
+(90,15,5.55,'cm',NULL,NULL,'2025-09-29 08:44:35'),
+(91,15,0,'cm',NULL,NULL,'2025-09-29 08:45:07'),
+(92,15,5.55,'cm',NULL,NULL,'2025-09-29 08:45:38'),
+(93,15,5.55,'cm',NULL,NULL,'2025-09-29 08:46:09'),
+(94,15,107.17,'cm',NULL,NULL,'2025-09-29 08:46:40'),
+(95,15,1012.71,'cm',NULL,NULL,'2025-09-29 08:47:12'),
+(96,15,119.9,'cm',NULL,NULL,'2025-09-29 08:47:43'),
+(97,15,115.5,'cm',NULL,NULL,'2025-09-29 08:48:15'),
+(98,15,20.57,'cm',NULL,NULL,'2025-09-29 08:48:46'),
+(99,15,186.55,'cm',NULL,NULL,'2025-09-29 08:49:17'),
+(100,15,170.71,'cm',NULL,NULL,'2025-09-29 08:49:48'),
+(101,15,1012.52,'cm',NULL,NULL,'2025-09-29 08:50:19'),
+(102,15,1012.72,'cm',NULL,NULL,'2025-09-29 08:51:26'),
+(103,15,169.98,'cm',NULL,NULL,'2025-09-29 08:51:57'),
+(104,15,70.9,'cm',NULL,NULL,'2025-09-29 08:52:28'),
+(105,15,1012.93,'cm',NULL,NULL,'2025-09-29 08:53:00'),
+(106,15,79.97,'cm',NULL,NULL,'2025-09-29 08:53:34'),
+(107,15,1012.91,'cm',NULL,NULL,'2025-09-29 08:54:05'),
+(108,15,1013.05,'cm',NULL,NULL,'2025-09-29 08:54:36'),
+(109,15,1013.14,'cm',NULL,NULL,'2025-09-29 08:55:08'),
+(110,15,1013.07,'cm',NULL,NULL,'2025-09-29 08:55:39'),
+(111,15,0,'cm',NULL,NULL,'2025-09-29 08:56:11'),
+(112,15,1013.1,'cm',NULL,NULL,'2025-09-29 08:56:42'),
+(113,15,1012.83,'cm',NULL,NULL,'2025-09-29 08:57:13'),
+(114,15,0,'cm',NULL,NULL,'2025-09-29 08:57:45'),
+(115,15,1012.98,'cm',NULL,NULL,'2025-09-29 08:58:19'),
+(116,15,1013.12,'cm',NULL,NULL,'2025-09-29 08:58:51'),
+(117,15,1013.03,'cm',NULL,NULL,'2025-09-29 08:59:22'),
+(118,15,1013,'cm',NULL,NULL,'2025-09-29 08:59:53'),
+(119,15,187,'cm',NULL,NULL,'2025-09-29 09:00:24'),
+(120,15,153.34,'cm',NULL,NULL,'2025-09-29 09:00:56'),
+(121,15,182.64,'cm',NULL,NULL,'2025-09-29 09:01:28'),
+(122,15,1012.97,'cm',NULL,NULL,'2025-09-29 09:01:59'),
+(123,15,1013.05,'cm',NULL,NULL,'2025-09-29 09:02:30'),
+(124,15,1012.91,'cm',NULL,NULL,'2025-09-29 09:03:01'),
+(125,15,1012.84,'cm',NULL,NULL,'2025-09-29 09:03:33'),
+(126,15,1012.86,'cm',NULL,NULL,'2025-09-29 09:04:04'),
+(127,15,1012.88,'cm',NULL,NULL,'2025-09-29 09:04:35'),
+(128,15,1012.83,'cm',NULL,NULL,'2025-09-29 09:05:06'),
+(129,15,1012.93,'cm',NULL,NULL,'2025-09-29 09:05:38'),
+(130,15,1012.93,'cm',NULL,NULL,'2025-09-29 09:06:09'),
+(131,15,18.28,'cm',NULL,NULL,'2025-09-29 09:06:40'),
+(132,15,17.43,'cm',NULL,NULL,'2025-09-29 09:07:11'),
+(133,15,1012.9,'cm',NULL,NULL,'2025-09-29 09:07:43'),
+(134,15,1012.83,'cm',NULL,NULL,'2025-09-29 09:08:14'),
+(135,15,1012.88,'cm',NULL,NULL,'2025-09-29 09:08:45'),
+(136,15,1012.86,'cm',NULL,NULL,'2025-09-29 09:09:16'),
+(137,15,1012.86,'cm',NULL,NULL,'2025-09-29 09:09:47'),
+(138,15,1012.88,'cm',NULL,NULL,'2025-09-29 09:10:19'),
+(139,15,0,'cm',NULL,NULL,'2025-09-29 09:10:51'),
+(140,15,1012.83,'cm',NULL,NULL,'2025-09-29 09:11:22'),
+(141,15,1012.95,'cm',NULL,NULL,'2025-09-29 09:11:53'),
+(142,15,34.07,'cm',NULL,NULL,'2025-09-29 09:12:25'),
+(143,15,15.21,'cm',NULL,NULL,'2025-09-29 09:12:56'),
+(144,15,13.91,'cm',NULL,NULL,'2025-09-29 09:13:29'),
+(145,15,1012.72,'cm',NULL,NULL,'2025-09-29 09:14:01'),
+(146,15,0,'cm',NULL,NULL,'2025-09-29 09:14:33'),
+(147,15,1012.67,'cm',NULL,NULL,'2025-09-29 09:15:04'),
+(148,15,1012.36,'cm',NULL,NULL,'2025-09-29 09:15:40'),
+(149,15,0,'cm',NULL,NULL,'2025-09-29 09:16:13'),
+(150,15,1012.36,'cm',NULL,NULL,'2025-09-29 09:16:45'),
+(152,13,24.9,'°C',NULL,NULL,'2025-09-29 09:23:01'),
+(153,14,58,'%',NULL,NULL,'2025-09-29 09:23:03'),
+(155,13,24.8,'°C',NULL,NULL,'2025-09-29 09:23:35'),
+(156,14,58,'%',NULL,NULL,'2025-09-29 09:23:36'),
+(158,13,24.8,'°C',NULL,NULL,'2025-09-29 09:24:08'),
+(159,14,57,'%',NULL,NULL,'2025-09-29 09:24:09'),
+(161,13,24.8,'°C',NULL,NULL,'2025-09-29 09:24:42'),
+(162,14,58,'%',NULL,NULL,'2025-09-29 09:24:45'),
+(164,13,24.8,'°C',NULL,NULL,'2025-09-29 09:25:17'),
+(165,14,59,'%',NULL,NULL,'2025-09-29 09:25:19'),
+(168,13,23.4,'°C',NULL,NULL,'2025-09-29 13:18:08'),
+(169,14,59,'%',NULL,NULL,'2025-09-29 13:18:10'),
+(171,13,23.8,'°C',NULL,NULL,'2025-09-29 13:18:42'),
+(172,14,59,'%',NULL,NULL,'2025-09-29 13:18:43'),
+(174,13,23.8,'°C',NULL,NULL,'2025-09-29 13:19:16'),
+(175,14,58,'%',NULL,NULL,'2025-09-29 13:19:17'),
+(177,13,23.8,'°C',NULL,NULL,'2025-09-29 13:19:51'),
+(178,14,58,'%',NULL,NULL,'2025-09-29 13:19:56'),
+(180,13,24.1,'°C',NULL,NULL,'2025-09-29 13:20:28'),
+(181,14,58,'%',NULL,NULL,'2025-09-29 13:20:29'),
+(204,13,24.8,'°C',NULL,NULL,'2025-10-27 10:24:02'),
+(205,14,65,'%',NULL,NULL,'2025-10-27 10:24:06'),
+(207,13,25.3,'°C',NULL,NULL,'2025-10-27 10:28:21'),
+(208,14,69,'%',NULL,NULL,'2025-10-27 10:28:23'),
+(210,13,25.3,'°C',NULL,NULL,'2025-10-27 10:28:57'),
+(211,14,69,'%',NULL,NULL,'2025-10-27 10:28:59'),
+(213,13,25.3,'°C',NULL,NULL,'2025-10-27 10:29:32'),
+(214,14,69,'%',NULL,NULL,'2025-10-27 10:29:33'),
+(216,13,25.3,'°C',NULL,NULL,'2025-10-27 10:30:06'),
+(217,14,69,'%',NULL,NULL,'2025-10-27 10:30:07'),
+(219,13,25.3,'°C',NULL,NULL,'2025-10-27 10:30:40'),
+(220,14,67,'%',NULL,NULL,'2025-10-27 10:30:41'),
+(222,13,25.3,'°C',NULL,NULL,'2025-10-27 10:31:13'),
+(223,14,66,'%',NULL,NULL,'2025-10-27 10:31:14'),
+(225,13,25.3,'°C',NULL,NULL,'2025-10-27 10:31:47'),
+(226,14,65,'%',NULL,NULL,'2025-10-27 10:31:48'),
+(228,13,25.3,'°C',NULL,NULL,'2025-10-27 10:32:21'),
+(229,14,64,'%',NULL,NULL,'2025-10-27 10:32:23'),
+(231,13,25.3,'°C',NULL,NULL,'2025-10-27 10:32:59'),
+(232,14,66,'%',NULL,NULL,'2025-10-27 10:33:00'),
+(234,13,25.3,'°C',NULL,NULL,'2025-10-27 10:33:32'),
+(235,14,67,'%',NULL,NULL,'2025-10-27 10:33:34'),
+(237,13,25.3,'°C',NULL,NULL,'2025-10-27 10:34:06'),
+(238,14,64,'%',NULL,NULL,'2025-10-27 10:34:07'),
+(240,13,25.3,'°C',NULL,NULL,'2025-10-27 10:34:40'),
+(241,14,63,'%',NULL,NULL,'2025-10-27 10:34:41'),
+(243,13,25.3,'°C',NULL,NULL,'2025-10-27 10:35:14'),
+(244,14,64,'%',NULL,NULL,'2025-10-27 10:35:15'),
+(246,13,25.3,'°C',NULL,NULL,'2025-10-27 10:35:47'),
+(247,14,67,'%',NULL,NULL,'2025-10-27 10:35:49'),
+(249,13,25.8,'°C',NULL,NULL,'2025-10-27 10:36:23'),
+(250,14,67,'%',NULL,NULL,'2025-10-27 10:36:25'),
+(252,13,25.8,'°C',NULL,NULL,'2025-10-27 10:36:58'),
+(253,14,65,'%',NULL,NULL,'2025-10-27 10:37:00'),
+(255,13,23.7,'°C',NULL,NULL,'2025-10-27 11:42:24'),
+(256,14,63,'%',NULL,NULL,'2025-10-27 11:42:25'),
+(258,13,23.8,'°C',NULL,NULL,'2025-10-27 11:42:57'),
+(259,14,63,'%',NULL,NULL,'2025-10-27 11:42:59'),
+(262,13,23.8,'°C',NULL,NULL,'2025-10-27 11:44:38'),
+(263,14,63,'%',NULL,NULL,'2025-10-27 11:44:39'),
+(265,13,23.8,'°C',NULL,NULL,'2025-10-27 11:45:11'),
+(266,14,63,'%',NULL,NULL,'2025-10-27 11:45:12'),
+(267,18,93,'Baixo',NULL,NULL,'2025-10-27 11:45:51'),
+(268,13,23.8,'°C',NULL,NULL,'2025-10-27 11:45:52'),
+(269,14,63,'%',NULL,NULL,'2025-10-27 11:45:53'),
+(270,18,0,'Baixo',NULL,NULL,'2025-10-27 11:46:24'),
+(271,13,23.8,'°C',NULL,NULL,'2025-10-27 11:46:25'),
+(272,14,63,'%',NULL,NULL,'2025-10-27 11:46:26'),
+(273,18,0,'Baixo',NULL,NULL,'2025-10-27 11:46:57'),
+(274,13,23.8,'°C',NULL,NULL,'2025-10-27 11:46:59'),
+(275,14,63,'%',NULL,NULL,'2025-10-27 11:47:00'),
+(276,18,0,'Baixo',NULL,NULL,'2025-10-27 11:47:33'),
+(277,13,23.8,'°C',NULL,NULL,'2025-10-27 11:47:34'),
+(278,14,63,'%',NULL,NULL,'2025-10-27 11:47:36'),
+(279,18,0,'Baixo',NULL,NULL,'2025-10-27 11:48:07'),
+(280,13,23.8,'°C',NULL,NULL,'2025-10-27 11:48:08'),
+(281,14,63,'%',NULL,NULL,'2025-10-27 11:48:09'),
+(282,18,0,'Baixo',NULL,NULL,'2025-10-27 11:48:40'),
+(283,13,23.8,'°C',NULL,NULL,'2025-10-27 11:48:41'),
+(284,14,63,'%',NULL,NULL,'2025-10-27 11:48:43'),
+(285,18,0,'Baixo',NULL,NULL,'2025-10-27 11:49:14'),
+(286,13,23.8,'°C',NULL,NULL,'2025-10-27 11:49:15'),
+(287,14,63,'%',NULL,NULL,'2025-10-27 11:49:16'),
+(288,18,0,'Baixo',NULL,NULL,'2025-10-27 11:49:47'),
+(289,13,23.8,'°C',NULL,NULL,'2025-10-27 11:49:48'),
+(290,14,63,'%',NULL,NULL,'2025-10-27 11:49:50'),
+(314,15,1.38,'cm',NULL,NULL,'2025-11-03 07:40:47'),
+(315,15,8.55,'cm',NULL,NULL,'2025-11-03 07:41:18'),
+(316,15,9.9,'cm',NULL,NULL,'2025-11-03 07:41:51'),
+(317,15,251.91,'cm',NULL,NULL,'2025-11-03 07:42:23'),
+(318,15,252,'cm',NULL,NULL,'2025-11-03 07:42:54'),
+(319,15,4.57,'cm',NULL,NULL,'2025-11-03 07:43:32'),
+(320,15,1205.66,'cm',NULL,NULL,'2025-11-03 07:44:04');
+
+
+UPDATE HISTORICO
+SET DADOS = FLOOR(10 + (RAND() * 5))
+WHERE ID_SENSOR = 15
+  AND DADOS > 16;
+  
+  UPDATE HISTORICO
+SET DADOS = FLOOR(10 + (RAND() * 5))
+WHERE ID_SENSOR = 3
+  AND DADOS > 16;
+
+-- INSERTS TAMBAU - PREFEITURA --
+INSERT INTO HISTORICO (ID_HISTORICO, ID_SENSOR, DADOS, UNIDADE_MEDIDA, LATITUDE, LONGITUDE, DATA_HORA_COLETA)
+VALUES
+    (1, 1, 28.5,  '°C',     NULL, NULL, NOW()),
+    (2, 1, 29.1,  '°C',     NULL, NULL, NOW()),
+    
+    (3, 2, 62.4,  '%',      NULL, NULL, NOW()),
+    (4, 2, 65.2,  '%',      NULL, NULL, NOW()),
+
+    (5, 3, 145,   'cm',     NULL, NULL, NOW()),
+    (6, 3, 152,   'cm',     NULL, NULL, NOW()),
+
+    (7, 4, 0.02,  'ppm',    NULL, NULL, NOW()),
+    (8, 4, 0.08,  'ppm',    NULL, NULL, NOW()),
+
+    (9, 1, 27.3,  '°C',     NULL, NULL, NOW()),
+    (10,2, 61.0,  '%',      NULL, NULL, NOW());
+
+
+-- SELECTS -- 
+
+-- =========================
+-- TABELA USUARIO
+-- =========================
+
+SELECT * FROM USUARIO;
+SELECT ID_USUARIO FROM USUARIO;
+SELECT NOME FROM USUARIO;
+SELECT SOBRENOME FROM USUARIO;
+SELECT EMAIL FROM USUARIO;
+SELECT DATA_NASCIMENTO FROM USUARIO;
+SELECT CEP FROM USUARIO;
+SELECT SENHA FROM USUARIO;
+SELECT TELEFONE_CELULAR FROM USUARIO;
+SELECT RAZAO_SOCIAL FROM USUARIO;
+SELECT CNPJ FROM USUARIO;
+SELECT TIPO_USUARIO FROM USUARIO;
+
+SELECT * FROM USUARIO;
+-- =========================
+-- TABELA SENSORES
+-- =========================
+SELECT * FROM SENSORES;
+SELECT ID_SENSOR FROM SENSORES;
+SELECT TIPO_SENSOR FROM SENSORES;
+SELECT LOCALIZACAO FROM SENSORES;
+SELECT DATA_INSTALACAO FROM SENSORES;
+SELECT STATUS_SENSOR FROM SENSORES;
+
+-- =========================
+-- TABELA HISTORICO
+-- =========================
+SELECT * FROM HISTORICO;
+SELECT ID_HISTORICO FROM HISTORICO;
+SELECT ID_SENSOR FROM HISTORICO;
+SELECT DADOS FROM HISTORICO;
+SELECT UNIDADE_MEDIDA FROM HISTORICO;
+
+  
+  -- inner join para o banco --
+  
+  SELECT * 
+  FROM HISTORICO H
+  INNER JOIN SENSORES S ON (S.ID_SENSOR = H.ID_SENSOR);
+ 
+ SELECT * FROM SENSORES;
+ SELECT * FROM HISTORICO;
+ 
+ SELECT H.*, S.TIPO_SENSOR, S.LOCALIZACAO
+             FROM HISTORICO H
+             JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+             WHERE LOCALIZACAO = "Tambaú - Escola Sesi"
+             ORDER BY H.DATA_HORA_COLETA DESC;
+
+
+-- 2) Histórico com tipo de sensor específico
+SELECT H.DADOS, H.UNIDADE_MEDIDA, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.TIPO_SENSOR = 'Sensor de Temperatura';
+
+-- 3) Contagem de registros por tipo de sensor
+SELECT S.TIPO_SENSOR, COUNT(H.ID_HISTORICO) AS total_registros
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+GROUP BY S.TIPO_SENSOR;
+
+-- 4) Última coleta de cada sensor
+SELECT S.ID_SENSOR, S.TIPO_SENSOR, MAX(H.DATA_HORA_COLETA) AS ultima_coleta
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+GROUP BY S.ID_SENSOR, S.TIPO_SENSOR;
+
+-- 5) Histórico com localização do sensor
+SELECT H.ID_HISTORICO, H.DADOS, H.UNIDADE_MEDIDA, S.LOCALIZACAO
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR;
+
+-- 6) Histórico de sensores ativos
+SELECT H.*, S.TIPO_SENSOR, S.STATUS_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.STATUS_SENSOR = 'Ativo';
+
+-- 7) Histórico de temperatura acima de 25°C
+SELECT H.DADOS, H.DATA_HORA_COLETA, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.TIPO_SENSOR = 'Sensor de Temperatura' AND H.DADOS > 25;
+
+-- 8) Média de dados por sensor
+SELECT S.TIPO_SENSOR, AVG(H.DADOS) AS media_dados
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+GROUP BY S.TIPO_SENSOR;
+
+-- 9) Histórico de sensores ultrassônicos
+SELECT H.*, S.LOCALIZACAO
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.TIPO_SENSOR = 'Sensor Ultrassônico';
+
+-- 10) Histórico com dados e status do sensor
+SELECT H.DADOS, H.UNIDADE_MEDIDA, S.TIPO_SENSOR, S.STATUS_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR;
+
+-- 11) Sensores e contagem de registros por sensor
+SELECT S.ID_SENSOR, S.TIPO_SENSOR, COUNT(H.ID_HISTORICO) AS total_historico
+FROM SENSORES S
+INNER JOIN HISTORICO H ON S.ID_SENSOR = H.ID_SENSOR
+GROUP BY S.ID_SENSOR, S.TIPO_SENSOR;
+
+-- 12) Histórico de um sensor específico por data
+SELECT H.*, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.ID_SENSOR = 15;
+
+-- 13) Histórico com dados de sensores de umidade
+SELECT H.ID_HISTORICO, H.DADOS, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.TIPO_SENSOR = 'Sensor de Umidade';
+
+-- 14) Histórico ordenado por data
+SELECT H.*, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+ORDER BY H.DATA_HORA_COLETA DESC;
+
+-- 15) Sensores com registros e unidades de medida
+SELECT S.TIPO_SENSOR, H.UNIDADE_MEDIDA, COUNT(H.ID_HISTORICO) AS qtd
+FROM SENSORES S
+INNER JOIN HISTORICO H ON S.ID_SENSOR = H.ID_SENSOR
+GROUP BY S.TIPO_SENSOR, H.UNIDADE_MEDIDA;
+
+-- 16) Último dado coletado de cada tipo de sensor
+SELECT S.TIPO_SENSOR, H.DADOS, MAX(H.DATA_HORA_COLETA) AS ultima_coleta
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+GROUP BY S.TIPO_SENSOR, H.DADOS;
+
+-- 17) Sensores ativos com seus últimos dados
+SELECT S.ID_SENSOR, S.TIPO_SENSOR, S.STATUS_SENSOR, H.DADOS, H.DATA_HORA_COLETA
+FROM SENSORES S
+INNER JOIN HISTORICO H ON S.ID_SENSOR = H.ID_SENSOR
+WHERE S.STATUS_SENSOR = 'Ativo'
+ORDER BY H.DATA_HORA_COLETA DESC;
+
+-- 18) Sensores de gases com dados históricos
+SELECT H.ID_HISTORICO, H.DADOS, S.TIPO_SENSOR, S.LOCALIZACAO
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE S.TIPO_SENSOR = 'Sensor de Gases';
+
+-- 19) Histórico com dados e tipo de sensor filtrando por unidade
+SELECT H.DADOS, H.UNIDADE_MEDIDA, S.TIPO_SENSOR
+FROM HISTORICO H
+INNER JOIN SENSORES S ON H.ID_SENSOR = S.ID_SENSOR
+WHERE H.UNIDADE_MEDIDA = '°C';
+
+-- 20) Combinação imaginária: usuários e sensores (para relatórios)
+SELECT U.NOME, U.SOBRENOME, S.TIPO_SENSOR, S.LOCALIZACAO
+FROM USUARIO U
+INNER JOIN SENSORES S ON U.ID_USUARIO = S.ID_SENSOR % 10;  -- Exemplo de join criativo, apenas para relatório

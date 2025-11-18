@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b2579879684f3d6e6ffcbc1b887aba04 {
+                    position: relative;
+                    width: 70.0%;
+                    height: 70.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_b2579879684f3d6e6ffcbc1b887aba04" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b2579879684f3d6e6ffcbc1b887aba04 = L.map(
+                "map_b2579879684f3d6e6ffcbc1b887aba04",
+                {
+                    center: [-23.55052, -46.633308],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_6a803d49eeb0c86b592d5266d5aaad46 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_b2579879684f3d6e6ffcbc1b887aba04);
+        
+    
+            var marker_cluster_359baca8518abf9924d87fe27ff9f4e8 = L.markerClusterGroup(
+                {}
+            );
+            map_b2579879684f3d6e6ffcbc1b887aba04.addLayer(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+            var marker_f0e3dd5d43798154cf27bb32c3be54bf = L.marker(
+                [-23.55052, -46.633308],
+                {}
+            ).addTo(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+        var popup_770145a5bbefc427c0af28d3a7921423 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fb0fd74752f25537340f5739b1269500 = $(`<div id="html_fb0fd74752f25537340f5739b1269500" style="width: 100.0%; height: 100.0%;">São Paulo - Centro</div>`)[0];
+            popup_770145a5bbefc427c0af28d3a7921423.setContent(html_fb0fd74752f25537340f5739b1269500);
+        
+
+        marker_f0e3dd5d43798154cf27bb32c3be54bf.bindPopup(popup_770145a5bbefc427c0af28d3a7921423)
+        ;
+
+        
+    
+    
+            var marker_8e203340706622f1c1666a384535580c = L.marker(
+                [-23.548943, -46.638818],
+                {}
+            ).addTo(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+        var popup_ec654a9e7c46adb5f13b045fd36ef29e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7b8310a42adf995af51a6d2a2216e941 = $(`<div id="html_7b8310a42adf995af51a6d2a2216e941" style="width: 100.0%; height: 100.0%;">Praça da Sé</div>`)[0];
+            popup_ec654a9e7c46adb5f13b045fd36ef29e.setContent(html_7b8310a42adf995af51a6d2a2216e941);
+        
+
+        marker_8e203340706622f1c1666a384535580c.bindPopup(popup_ec654a9e7c46adb5f13b045fd36ef29e)
+        ;
+
+        
+    
+    
+            var marker_3566f236bd88d64b72e66660f47319a9 = L.marker(
+                [-23.562573, -46.6545],
+                {}
+            ).addTo(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+        var popup_72511e977cb53a065f82135355933648 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_24f35130904b7f20a07dbebfe751d1e1 = $(`<div id="html_24f35130904b7f20a07dbebfe751d1e1" style="width: 100.0%; height: 100.0%;">Avenida Paulista</div>`)[0];
+            popup_72511e977cb53a065f82135355933648.setContent(html_24f35130904b7f20a07dbebfe751d1e1);
+        
+
+        marker_3566f236bd88d64b72e66660f47319a9.bindPopup(popup_72511e977cb53a065f82135355933648)
+        ;
+
+        
+    
+    
+            var marker_9733b2c1e668c6847181c1cc7620b23e = L.marker(
+                [-23.555771, -46.639557],
+                {}
+            ).addTo(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+        var popup_f3be60a5d3578e32a2981b3eb7b91fd0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5256ce020db3cccb93e2e006c3a8a7e0 = $(`<div id="html_5256ce020db3cccb93e2e006c3a8a7e0" style="width: 100.0%; height: 100.0%;">Catedral da Sé</div>`)[0];
+            popup_f3be60a5d3578e32a2981b3eb7b91fd0.setContent(html_5256ce020db3cccb93e2e006c3a8a7e0);
+        
+
+        marker_9733b2c1e668c6847181c1cc7620b23e.bindPopup(popup_f3be60a5d3578e32a2981b3eb7b91fd0)
+        ;
+
+        
+    
+    
+            var marker_dedf95276487496ca9ded7144b6a87aa = L.marker(
+                [-23.533773, -46.62529],
+                {}
+            ).addTo(marker_cluster_359baca8518abf9924d87fe27ff9f4e8);
+        
+    
+        var popup_1d0964426c18faf227e46728ce4d13dc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d4fdb86e1395c319780a3f92fdc3b50a = $(`<div id="html_d4fdb86e1395c319780a3f92fdc3b50a" style="width: 100.0%; height: 100.0%;">Museu do Ipiranga</div>`)[0];
+            popup_1d0964426c18faf227e46728ce4d13dc.setContent(html_d4fdb86e1395c319780a3f92fdc3b50a);
+        
+
+        marker_dedf95276487496ca9ded7144b6a87aa.bindPopup(popup_1d0964426c18faf227e46728ce4d13dc)
+        ;
+
+        
+    
+</script>
+</html>
